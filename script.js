@@ -1,47 +1,46 @@
+
 document.addEventListener("DOMContentLoaded", function () {
-  const chatbotContainer = document.getElementById("chatbot-container");
-  const clostBtn = document.getElementById("close-btn");
-  const sendBtn = document.getElementById("send-btn");
-  const chatBotInput = document.getElementById("chatbot-input");
-  const chatbotMessages = document.getElementById("chatbot-messages");
-  const chatbotIcon = document.getElementById("chatbot-icon");
+const chatbotContainer = document.getElementById("chatbot-container");
+const closeBtn = document.getElementById("close-btn");
+const sendBtn = document.getElementById("send-btn");
+const chatBotInput = document.getElementById("chatbot-input");
+const chatbotMessages = document.getElementById("chatbot-messages");
+const chatbotIcon = document.getElementById("chatbot-icon");
 
-  chatbotIcon.addEventListener("click", () => {
-    chatbotContainer.classList.remove("hidden");
-    chatbotIcon.style.display = "none";
-  });
-  clostBtn.addEventListener("click", () => {
-    chatbotContainer.classList.add("hidden");
-    chatbotIcon.style.display = "flex";
-  });
+chatbotIcon.addEventListener("click", () => {
+  chatbotContainer.classList.remove("hidden");
+  chatbotIcon.style.display = "none";
+});
 
-  sendBtn.addEventListener("click", sendMessage);
+closeBtn.addEventListener("click", () => {
+  chatbotContainer.classList.add("hidden");
+  chatbotIcon.style.display = "flex";
+});
 
-  chatBotInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
-  });
+sendBtn.addEventListener("click", sendMessage);
+chatBotInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
 });
 
 function sendMessage() {
-  const userMessage = document.getElementById("chatbot-input").value.trim();
+  const userMessage = chatBotInput.value.trim();
   if (userMessage) {
     appendMessage("user", userMessage);
-    document.getElementById("chatbot-input").value.trim();
+    chatBotInput.value = ""; 
     getBotResponse(userMessage);
   }
 }
 
 function appendMessage(sender, message) {
-  const messageContainer = document.getElementById("chatbot-messages");
   const messageElement = document.createElement("div");
   messageElement.classList.add("message", sender);
   messageElement.textContent = message;
-  messageContainer.appendChild(messageElement);
-  messageContainer.scrollTop = messageContainer.scrollHeight;
+  chatbotMessages.appendChild(messageElement);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
 async function getBotResponse(userMessage) {
-  const API_KEY = "YOUR API KEY";
+  const API_KEY = "AIzaSyBbGO4zTKz9vxc2RDMAmPLByarSqcBikbg";
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
   try {
@@ -49,11 +48,7 @@ async function getBotResponse(userMessage) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: userMessage }],
-          },
-        ],
+        contents: [{ parts: [{ text: userMessage }] }]
       }),
     });
 
@@ -67,9 +62,7 @@ async function getBotResponse(userMessage) {
     appendMessage("bot", botMessage);
   } catch (error) {
     console.error("Error:", error);
-    appendMessage(
-      "bot",
-      "Sorry, I'm having trouble responding. Please try again."
-    );
+    appendMessage("bot", "Sorry, I'm having trouble responding. Please try again.");
   }
 }
+});

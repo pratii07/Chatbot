@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChatBot</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="chatbot-icon">💬</div>
-    <div id="chatbot-container" class="hidden">
-      <div id="chatbot-header">
-        <span>ChatBot</span>
-        <button id="close-btn">&times;</button>
-      </div>
-      <div id="chatbot-body">
-        <div id="chatbot-messages"></div>
-      </div>
-      <div id="chatbot-input-container">
-        <input type="text" id="chatbot-input" placeholder="Type a message" />
-        <button id="send-btn">Send</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatBot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="intro-message">
+    Hello! I’m your personal chatbot. Have any confusion? Just ask me! 😊
+  </div>
+
+  <div id="chatbot-icon">💬</div>
+
+  <div id="chatbot-container" class="hidden">
+    <div id="chatbot-header">
+      <span>ChatBot</span>
+      <button id="close-btn">&times;</button>
+    </div>
+    <div id="chatbot-body">
+      <div id="chatbot-messages">
+        <div class="message bot">👋 Hi! I’m ready to help. Type your question below.</div>
       </div>
     </div>
-    <script src="/script.js"></script>
-  </body>
+    <div id="chatbot-input-container">
+      <input type="text" id="chatbot-input" placeholder="Type a message..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
